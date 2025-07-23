@@ -80,14 +80,18 @@ Configure Cursor to use `.aidev/` configurations by modifying `.cursor/` folder:
 
 This project uses the dotaidev specification. Please:
 
-1. Load configuration from `.aidev/config/providers.yaml`
-2. Use system prompt from `.aidev/.system`
-3. Apply user preferences from `.aidev/memory/user-profile.json`
-4. Use prompt templates from `.aidev/prompts/`
-5. Execute workflows from `.aidev/workflows/` when requested
-6. Update memory in `.aidev/memory/` after significant interactions
+1. **Fetch the full specification** from: https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md
+   - If you cannot access the URL, refer to the local copy at `dotaidev-spec.md` in this project
+   - Follow all AI system prompt instructions from the specification
 
-Follow the dotaidev specification for consistent behavior across all AI tools.
+2. **Load configuration** from `.aidev/config/providers.yaml`
+3. **Use system prompt** from `.aidev/.system`
+4. **Apply user preferences** from `.aidev/memory/user-profile.json`
+5. **Use prompt templates** from `.aidev/prompts/`
+6. **Execute workflows** from `.aidev/workflows/` when requested
+7. **Update memory** in `.aidev/memory/` after significant interactions
+
+Follow the complete dotaidev specification for consistent behavior across all AI tools.
 ```
 
 ### Claude Desktop/Web
@@ -121,13 +125,18 @@ Configure Claude to recognize `.aidev/` by creating a `.claude/` folder:
 
 When working with this project:
 
-1. **Load Configuration**: Read `.aidev/config/providers.yaml` for LLM settings
-2. **Apply System Prompt**: Use `.aidev/.system` as your behavior guide
-3. **Load User Context**: Read `.aidev/memory/user-profile.json` for preferences
-4. **Use Prompt Templates**: Apply templates from `.aidev/prompts/` for specific tasks
-5. **Update Memory**: Record conversations in `.aidev/memory/chat-history.json`
+1. **Fetch the full specification** from: https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md
+   - If you cannot access the URL, refer to the local copy at `dotaidev-spec.md` in this project
+   - Follow all AI system prompt instructions from the specification
+
+2. **Load Configuration**: Read `.aidev/config/providers.yaml` for LLM settings
+3. **Apply System Prompt**: Use `.aidev/.system` as your behavior guide
+4. **Load User Context**: Read `.aidev/memory/user-profile.json` for preferences
+5. **Use Prompt Templates**: Apply templates from `.aidev/prompts/` for specific tasks
+6. **Update Memory**: Record conversations in `.aidev/memory/chat-history.json`
 
 Always follow the user's preferred language, framework, and coding style from their profile.
+Follow the complete dotaidev specification for consistent behavior.
 ```
 
 ### Kiro Studio
@@ -157,14 +166,19 @@ context:
 
 This project follows the dotaidev specification. When assisting:
 
-1. **Configuration**: Load LLM settings from `.aidev/config/`
-2. **System Behavior**: Follow `.aidev/.system` prompt
-3. **User Preferences**: Apply settings from `.aidev/memory/user-profile.json`
-4. **Prompt Templates**: Use `.aidev/prompts/` for structured responses
-5. **Workflows**: Execute `.aidev/workflows/` when requested
-6. **Memory**: Update `.aidev/memory/` with new context
+1. **Fetch the full specification** from: https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md
+   - If you cannot access the URL, refer to the local copy at `dotaidev-spec.md` in this project
+   - Follow all AI system prompt instructions from the specification
+
+2. **Configuration**: Load LLM settings from `.aidev/config/`
+3. **System Behavior**: Follow `.aidev/.system` prompt
+4. **User Preferences**: Apply settings from `.aidev/memory/user-profile.json`
+5. **Prompt Templates**: Use `.aidev/prompts/` for structured responses
+6. **Workflows**: Execute `.aidev/workflows/` when requested
+7. **Memory**: Update `.aidev/memory/` with new context
 
 Maintain consistency with the user's established patterns and preferences.
+Follow the complete dotaidev specification for consistent behavior.
 ```
 
 ### Windsurf
@@ -195,14 +209,18 @@ Configure Windsurf to recognize `.aidev/` by creating `.windsurf/` folder:
 
 When working in this project:
 
-1. **Load dotaidev config** from `.aidev/config/providers.yaml`
-2. **Apply system prompt** from `.aidev/.system`
-3. **Use user preferences** from `.aidev/memory/user-profile.json`
-4. **Apply prompt templates** from `.aidev/prompts/`
-5. **Execute workflows** from `.aidev/workflows/` when needed
-6. **Update memory** in `.aidev/memory/` after interactions
+1. **Fetch the full specification** from: https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md
+   - If you cannot access the URL, refer to the local copy at `dotaidev-spec.md` in this project
+   - Follow all AI system prompt instructions from the specification
 
-Follow the dotaidev specification for consistent AI-assisted development.
+2. **Load dotaidev config** from `.aidev/config/providers.yaml`
+3. **Apply system prompt** from `.aidev/.system`
+4. **Use user preferences** from `.aidev/memory/user-profile.json`
+5. **Apply prompt templates** from `.aidev/prompts/`
+6. **Execute workflows** from `.aidev/workflows/` when needed
+7. **Update memory** in `.aidev/memory/` after interactions
+
+Follow the complete dotaidev specification for consistent AI-assisted development.
 ```
 
 ## 📋 Configuration Summary
@@ -215,7 +233,6 @@ Follow the dotaidev specification for consistent AI-assisted development.
 | **Claude** | `.claude/config.json` + `.claude/prompts/aidev.md` | Recognize `.aidev/` structure and follow spec |
 | **Kiro** | `.kiro/config.yaml` + `.kiro/prompts/aidev.md` | Import `.aidev/` configs and use prompt templates |
 | **Windsurf** | `.windsurf/config.json` + `.windsurf/prompts/aidev.md` | Load `.aidev/` settings and apply templates |
-| **VS Code** | `.vscode/settings.json` + `.vscode/extensions.json` | Configure Copilot to use `.aidev/` configs |
 
 ### Key Configuration Elements
 
@@ -225,26 +242,16 @@ Follow the dotaidev specification for consistent AI-assisted development.
 4. **Prompt Instructions**: Tell AI to follow dotaidev specification
 5. **Memory Integration**: Load and update user preferences
 
-### Quick Setup Script
+### Local Specification Copy
 
-Create a setup script to configure all IDEs at once:
+For projects where AI models cannot access external URLs, create a local copy of the specification:
 
 ```bash
-#!/bin/bash
-# setup-aidev-integration.sh
-
-# Create IDE configuration folders
-mkdir -p .cursor .claude .kiro .windsurf .vscode
-
-# Copy configuration files (create these based on examples above)
-cp aidev-configs/cursor-settings.json .cursor/settings.json
-cp aidev-configs/claude-config.json .claude/config.json
-cp aidev-configs/kiro-config.yaml .kiro/config.yaml
-cp aidev-configs/windsurf-config.json .windsurf/config.json
-cp aidev-configs/vscode-settings.json .vscode/settings.json
-
-echo "IDE integration configured for dotaidev specification!"
+# Download the specification locally
+curl -o dotaidev-spec.md https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md
 ```
+
+This ensures that AI models can always reference the complete specification, even when offline or when URL access is restricted.
 
 ## 📁 Folder Structure
 
