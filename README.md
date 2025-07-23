@@ -28,6 +28,7 @@ The `dotaidev` project proposes a **vendor-agnostic, community-driven specificat
 ### Design Strategies
 
 * Use standard formats like `yaml`, `json`, and `md` to maximize readability and tooling support
+* **Format Flexibility**: JSON, YAML, and Markdown are all recommended formats - choose based on content type and preference
 * Design for extensibility by reserving optional subfolders (e.g., `.aidev/agents/`)
 * Enable pluggable usage in CLI tools, IDEs, dev servers, and browser-based runtimes
 
@@ -50,64 +51,184 @@ The `dotaidev` project proposes a **vendor-agnostic, community-driven specificat
 
 ### Content Description
 
-| Path         | Purpose                                           | Formats              |
+| Path         | Purpose                                           | Recommended Formats  |
 | ------------ | ------------------------------------------------- | -------------------- |
 | `config/`    | Define models, LLM providers, and API credentials | `yaml`, `json`       |
-| `prompts/`   | Store editable prompt templates for reuse         | `md`, `txt`          |
+| `prompts/`   | Store editable prompt templates for reuse         | `md`, `txt`, `yaml`  |
 | `workflows/` | Define named AI tasks or chains                   | `yaml`, `json`       |
 | `memory/`    | Store facts, chat history, or long-term memory    | `json`, `yaml`       |
 | `agents/`    | Store LangGraph flows, AutoGen scripts, etc.      | `json`, `py`, `yaml` |
 | `.ignore`    | File patterns to ignore for assistant input       | text (glob syntax)   |
-| `.system`    | Global system instruction for the assistant       | plain text           |
+| `.system`    | Global system instruction for the assistant       | plain text, `md`     |
 
 ### Recommended Content Formats
 
-#### `config/providers.yaml`
+Choose the format that best suits your content type. All formats are supported:
 
+#### Configuration Examples
+
+**`config/providers.yaml`**
 ```yaml
 providers:
   openai:
     model: gpt-4o
     api_key: "${OPENAI_API_KEY}"
+    temperature: 0.7
   anthropic:
     model: claude-3-opus
     api_key: "${ANTHROPIC_API_KEY}"
+    temperature: 0.5
+default_provider: openai
 ```
 
-#### `prompts/test-gen.md`
+**`config/providers.json`**
+```json
+{
+  "providers": {
+    "openai": {
+      "model": "gpt-4o",
+      "api_key": "${OPENAI_API_KEY}",
+      "temperature": 0.7
+    }
+  },
+  "default_provider": "openai"
+}
+```
 
+#### Prompt Template Examples
+
+**`prompts/code-review.md`**
 ```markdown
-# Generate Unit Tests
-Given the following source code, generate a complete test suite using best practices.
+# Code Review Assistant
+
+Review the provided code for:
+- Code quality (readability, structure, naming)
+- Best practices (SOLID principles, error handling)
+- Security (input validation, authentication)
+- Performance (efficiency, optimization)
+
+Output format:
+- Summary of findings
+- Issues by severity (Critical/High/Medium/Low)
+- Specific recommendations
 ```
 
-#### `workflows/create-feature.yaml`
+**`prompts/test-generation.yaml`**
+```yaml
+name: "Generate Unit Tests"
+role: "Expert software tester"
+requirements:
+  - "Unit tests for individual functions"
+  - "Edge cases and error conditions"
+  - "Mock external dependencies"
+output:
+  - "Complete test file with imports"
+  - "Test cases with descriptive names"
+  - "Mocking setup"
+```
 
+#### Workflow Examples
+
+**`workflows/create-feature.yaml`**
 ```yaml
 name: Create Feature Component
 steps:
-  - prompt: "Generate a React component"
-  - file: src/components/NewComponent.tsx
-  - test: true
+  - name: generate_component
+    prompt: "Generate a React component"
+    file: "src/components/{{name}}.tsx"
+  - name: generate_tests
+    prompt: "Generate tests for the component"
+    file: "src/components/__tests__/{{name}}.test.tsx"
+variables:
+  name: "NewFeature"
 ```
 
-#### `memory/user-profile.json`
-
+**`workflows/code-review.json`**
 ```json
 {
-  "preferred_language": "TypeScript",
-  "style_guide": "airbnb",
-  "past_tasks": ["refactored auth", "generated tests"]
+  "name": "Code Review",
+  "steps": [
+    {
+      "name": "analyze",
+      "prompt": "Analyze code for issues",
+      "output": "analysis.md"
+    },
+    {
+      "name": "suggest",
+      "prompt": "Suggest improvements",
+      "output": "suggestions.md"
+    }
+  ]
 }
 ```
 
-#### `agents/langgraph/dag.json`
+#### Memory Examples
 
+**`memory/user-profile.json`**
 ```json
 {
-  "nodes": ["ReadCode", "PlanChange", "WriteCode"],
-  "edges": [["ReadCode", "PlanChange"], ["PlanChange", "WriteCode"]]
+  "preferences": {
+    "language": "TypeScript",
+    "framework": "React",
+    "testing": "Jest"
+  },
+  "project": {
+    "type": "web_app",
+    "database": "PostgreSQL"
+  }
 }
+```
+
+**`memory/chat-history.yaml`**
+```yaml
+conversations:
+  - topic: "Auth System"
+    summary: "JWT implementation"
+    decisions: ["Use JWT", "Add rate limiting"]
+preferences:
+  response_style: "detailed"
+  code_format: "typescript"
+```
+
+#### Agent Configuration Examples
+
+**`agents/langgraph/dag.json`**
+```json
+{
+  "name": "Code Review Agent",
+  "nodes": [
+    {
+      "name": "ReadCode",
+      "type": "tool",
+      "config": {"file_patterns": ["**/*.{ts,js}"]}
+    },
+    {
+      "name": "Analyze",
+      "type": "llm",
+      "config": {"prompt": "prompts/code-review.md"}
+    }
+  ],
+  "edges": [{"from": "ReadCode", "to": "Analyze"}]
+}
+```
+
+**`agents/autogen/multi-agent.yaml`**
+```yaml
+name: "Dev Team"
+agents:
+  - name: "Developer"
+    role: "Write code and tests"
+    model: "gpt-4o"
+  - name: "Reviewer"
+    role: "Review code quality"
+    model: "gpt-4o"
+workflows:
+  - name: "FeatureDev"
+    steps:
+      - agent: "Developer"
+        action: "implement"
+      - agent: "Reviewer"
+        action: "review"
 ```
 
 ---
@@ -129,14 +250,6 @@ The `dotaidev` spec is designed to work with modern AI-integrated tools, includi
 * **AutoGen**: Define multi-agent conversations, configs, and roles in `agents/autogen/`
 * **OpenDevin**: House planning prompts, task state, and shell tool usage patterns
 
-### CLI Tools
-
-Tools like [`aidev`](https://github.com/efritz/aidev) and `llm` can load `.aidev/` content to:
-
-* Register prompts
-* Choose a provider
-* Apply workflows (e.g., “generate readme”, “refactor file”)
-
 ---
 
 ## Part V: Contribution and License
@@ -152,22 +265,3 @@ We invite all developers, tool builders, and researchers to contribute:
 ### License
 
 This project and specification are released under the [MIT License](LICENSE), permitting reuse in commercial and non-commercial projects.
-
-You are free to:
-
-* Implement the `.aidev/` spec in your tool or product
-* Extend the layout to fit your workflow
-* Share and distribute `.aidev` prompt packs or agent configurations
-
----
-
-### Project Goals
-
-`dotaidev` aims to:
-
-* Become the de facto layout for AI assistant context
-* Promote reproducible, explainable, and portable prompt engineering
-* Enable IDEs, CLIs, and agents to share a common assistant backend
-
-**GitHub Repo:** [https://github.com/dotaidev/spec](https://github.com/dotaidev/spec)
-**Lead Maintainer:** Open to the community
