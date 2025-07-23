@@ -280,8 +280,8 @@ This ensures that AI models can always reference the complete specification, eve
 ## 📚 Documentation
 
 - **[Full Specification](https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md)** - Complete technical specification
-- **[Examples Repository](https://github.com/dotaidev/.aidev)** - Real-world usage examples
-- **[IDE Integration Guide](https://github.com/dotaidev/README.md)** - Detailed integration instructions
+- **[Examples Repository](https://github.com/dotaidev/dotaidev/tree/main/.aidev)** - Real-world usage examples
+- **[IDE Integration Guide](https://github.com/dotaidev/dotaidev/blob/main/README.md)** - Detailed integration instructions
 
 ## 🤝 Contributing
 
