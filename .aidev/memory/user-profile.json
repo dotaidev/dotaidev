@@ -1,0 +1,67 @@
+{
+  "user_preferences": {
+    "preferred_language": "TypeScript",
+    "preferred_framework": "React",
+    "coding_style": "functional",
+    "testing_framework": "Jest",
+    "styling_approach": "styled-components",
+    "code_formatter": "Prettier",
+    "linter": "ESLint",
+    "package_manager": "npm"
+  },
+  "project_context": {
+    "project_type": "web_application",
+    "architecture": "microservices",
+    "database": "PostgreSQL",
+    "deployment": "Docker + Kubernetes",
+    "monitoring": "Prometheus + Grafana",
+    "ci_cd": "GitHub Actions"
+  },
+  "development_habits": {
+    "git_workflow": "feature_branch",
+    "commit_convention": "conventional_commits",
+    "code_review_process": "pull_request",
+    "testing_strategy": "tdd",
+    "documentation_style": "markdown"
+  },
+  "past_tasks": [
+    {
+      "task": "refactored_authentication_system",
+      "date": "2024-01-15",
+      "technologies": ["JWT", "OAuth2", "TypeScript"],
+      "outcome": "success"
+    },
+    {
+      "task": "generated_api_documentation",
+      "date": "2024-01-10",
+      "technologies": ["OpenAPI", "Swagger"],
+      "outcome": "success"
+    },
+    {
+      "task": "implemented_caching_layer",
+      "date": "2024-01-05",
+      "technologies": ["Redis", "Node.js"],
+      "outcome": "success"
+    }
+  ],
+  "learning_goals": [
+    "GraphQL implementation",
+    "Microservices communication patterns",
+    "Advanced TypeScript features",
+    "Performance optimization techniques"
+  ],
+  "common_patterns": {
+    "error_handling": "try_catch_with_logging",
+    "data_validation": "joi_or_yup",
+    "api_response": "standardized_json_format",
+    "state_management": "react_context_or_redux",
+    "routing": "react_router"
+  },
+  "code_standards": {
+    "naming_convention": "camelCase",
+    "file_naming": "kebab-case",
+    "component_structure": "functional_with_hooks",
+    "import_organization": "grouped_by_type",
+    "comment_style": "jsdoc"
+  }
+} 

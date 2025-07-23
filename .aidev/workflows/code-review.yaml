@@ -1,0 +1,148 @@
+name: Automated Code Review
+description: Comprehensive code review workflow with multiple analysis stages
+
+steps:
+  - name: static_analysis
+    prompt: "Perform static code analysis for potential issues"
+    template: "static_analysis"
+    output: "static_analysis_report.md"
+    
+  - name: security_scan
+    prompt: "Scan for security vulnerabilities and best practices"
+    template: "security_scan"
+    output: "security_report.md"
+    
+  - name: performance_review
+    prompt: "Analyze code for performance bottlenecks and optimization opportunities"
+    template: "performance_analysis"
+    output: "performance_report.md"
+    
+  - name: code_quality
+    prompt: "Review code quality, readability, and maintainability"
+    template: "code_quality"
+    output: "quality_report.md"
+    
+  - name: test_coverage
+    prompt: "Analyze test coverage and suggest additional tests"
+    template: "test_coverage"
+    output: "test_coverage_report.md"
+    
+  - name: documentation_review
+    prompt: "Review documentation completeness and clarity"
+    template: "documentation_review"
+    output: "documentation_report.md"
+    
+  - name: generate_summary
+    prompt: "Generate a comprehensive summary of all findings"
+    template: "summary_report"
+    output: "code_review_summary.md"
+    
+  - name: suggest_improvements
+    prompt: "Provide specific improvement suggestions with code examples"
+    template: "improvements"
+    output: "improvement_suggestions.md"
+
+templates:
+  static_analysis: |
+    Analyze the provided code for:
+    - Unused variables and imports
+    - Dead code
+    - Type safety issues
+    - Potential null/undefined errors
+    - Code complexity metrics
+    - Cyclomatic complexity
+    
+    Provide a detailed report with:
+    - Issues found (critical, high, medium, low)
+    - Code metrics
+    - Recommendations for improvement
+    
+  security_scan: |
+    Perform a security analysis focusing on:
+    - Input validation and sanitization
+    - Authentication and authorization
+    - Data exposure risks
+    - SQL injection vulnerabilities
+    - XSS prevention
+    - Secure coding practices
+    
+    Provide a security assessment with:
+    - Vulnerabilities found
+    - Risk levels
+    - Remediation steps
+    
+  performance_analysis: |
+    Analyze performance aspects:
+    - Algorithm efficiency
+    - Memory usage patterns
+    - Database query optimization
+    - Network request optimization
+    - Caching opportunities
+    - Resource management
+    
+    Provide performance insights with:
+    - Bottlenecks identified
+    - Optimization opportunities
+    - Performance metrics
+    
+  code_quality: |
+    Review code quality focusing on:
+    - SOLID principles adherence
+    - Design patterns usage
+    - Code readability
+    - Maintainability
+    - Code smells
+    - Best practices
+    
+    Provide quality assessment with:
+    - Quality metrics
+    - Areas for improvement
+    - Refactoring suggestions
+    
+  test_coverage: |
+    Analyze test coverage:
+    - Unit test coverage
+    - Integration test coverage
+    - Edge case testing
+    - Mock usage
+    - Test quality
+    - Missing test scenarios
+    
+    Provide test analysis with:
+    - Coverage metrics
+    - Missing test cases
+    - Test improvement suggestions
+    
+  documentation_review: |
+    Review documentation:
+    - API documentation
+    - Code comments
+    - README files
+    - Architecture documentation
+    - Setup instructions
+    
+    Provide documentation assessment with:
+    - Completeness score
+    - Clarity evaluation
+    - Missing documentation
+    
+  summary_report: |
+    Create a comprehensive summary of all findings:
+    - Executive summary
+    - Critical issues
+    - Overall code quality score
+    - Priority recommendations
+    - Next steps
+    
+  improvements: |
+    Provide specific improvement suggestions:
+    - Code examples for fixes
+    - Step-by-step refactoring guide
+    - Best practice implementations
+    - Performance optimizations
+    - Security enhancements
+
+output_format:
+  - markdown
+  - structured_data
+  - actionable_items 

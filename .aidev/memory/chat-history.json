@@ -1,0 +1,79 @@
+{
+  "conversations": [
+    {
+      "id": "conv_001",
+      "date": "2024-01-20",
+      "topic": "Authentication System Refactoring",
+      "summary": "Discussed JWT implementation and OAuth2 integration for user authentication",
+      "key_decisions": [
+        "Use JWT for session management",
+        "Implement refresh token rotation",
+        "Add rate limiting for auth endpoints"
+      ],
+      "files_modified": [
+        "src/auth/jwt.service.ts",
+        "src/auth/oauth.service.ts",
+        "src/middleware/rate-limit.ts"
+      ]
+    },
+    {
+      "id": "conv_002",
+      "date": "2024-01-18",
+      "topic": "API Documentation Generation",
+      "summary": "Set up OpenAPI/Swagger documentation for REST API endpoints",
+      "key_decisions": [
+        "Use OpenAPI 3.0 specification",
+        "Auto-generate docs from TypeScript interfaces",
+        "Include authentication examples"
+      ],
+      "files_modified": [
+        "src/swagger/swagger.config.ts",
+        "src/controllers/user.controller.ts",
+        "docs/api/openapi.yaml"
+      ]
+    },
+    {
+      "id": "conv_003",
+      "date": "2024-01-15",
+      "topic": "Caching Strategy Implementation",
+      "summary": "Implemented Redis caching layer for database queries and API responses",
+      "key_decisions": [
+        "Cache frequently accessed data for 15 minutes",
+        "Use cache-aside pattern",
+        "Implement cache invalidation on data updates"
+      ],
+      "files_modified": [
+        "src/cache/redis.service.ts",
+        "src/services/user.service.ts",
+        "src/middleware/cache.middleware.ts"
+      ]
+    }
+  ],
+  "common_questions": [
+    {
+      "question": "How to handle TypeScript strict mode errors?",
+      "frequency": 5,
+      "last_asked": "2024-01-19",
+      "solution": "Use proper type annotations and null checks"
+    },
+    {
+      "question": "Best practices for React component testing?",
+      "frequency": 3,
+      "last_asked": "2024-01-17",
+      "solution": "Use React Testing Library and test user interactions"
+    },
+    {
+      "question": "How to optimize database queries?",
+      "frequency": 4,
+      "last_asked": "2024-01-16",
+      "solution": "Use indexes, limit results, and implement pagination"
+    }
+  ],
+  "preferences": {
+    "response_style": "detailed_with_examples",
+    "code_format": "typescript_with_comments",
+    "explanation_depth": "intermediate_to_advanced",
+    "include_alternatives": true,
+    "suggest_improvements": true
+  }
+} 

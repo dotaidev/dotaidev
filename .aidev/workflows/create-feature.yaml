@@ -1,0 +1,99 @@
+name: Create Feature Component
+description: Workflow for creating a new feature component with tests and documentation
+
+steps:
+  - name: analyze_requirements
+    prompt: "Analyze the feature requirements and create a component specification"
+    output: "component_spec.md"
+    
+  - name: generate_component
+    prompt: "Generate a React component based on the specification"
+    file: "src/components/{{component_name}}.tsx"
+    template: "component_template"
+    
+  - name: generate_tests
+    prompt: "Generate comprehensive unit tests for the component"
+    file: "src/components/__tests__/{{component_name}}.test.tsx"
+    template: "test_template"
+    
+  - name: generate_stories
+    prompt: "Generate Storybook stories for the component"
+    file: "src/components/{{component_name}}.stories.tsx"
+    template: "storybook_template"
+    
+  - name: update_exports
+    action: "update_index"
+    file: "src/components/index.ts"
+    
+  - name: generate_documentation
+    prompt: "Generate component documentation"
+    file: "docs/components/{{component_name}}.md"
+    
+  - name: run_tests
+    command: "npm test {{component_name}}"
+    
+  - name: lint_code
+    command: "npm run lint src/components/{{component_name}}.tsx"
+    
+  - name: type_check
+    command: "npm run type-check"
+
+variables:
+  component_name: "NewFeature"
+  component_type: "functional"
+  styling: "styled-components"
+  testing_framework: "jest"
+  
+templates:
+  component_template: |
+    import React from 'react';
+    import styled from 'styled-components';
+    
+    interface {{component_name}}Props {
+      // Define props here
+    }
+    
+    const Styled{{component_name}} = styled.div`
+      // Add styles here
+    `;
+    
+    export const {{component_name}}: React.FC<{{component_name}}Props> = (props) => {
+      return (
+        <Styled{{component_name}}>
+          {/* Component content */}
+        </Styled{{component_name}}>
+      );
+    };
+    
+  test_template: |
+    import React from 'react';
+    import { render, screen } from '@testing-library/react';
+    import { {{component_name}} } from '../{{component_name}}';
+    
+    describe('{{component_name}}', () => {
+      it('renders correctly', () => {
+        render(<{{component_name}} />);
+        // Add assertions
+      });
+    });
+    
+  storybook_template: |
+    import type { Meta, StoryObj } from '@storybook/react';
+    import { {{component_name}} } from './{{component_name}}';
+    
+    const meta: Meta<typeof {{component_name}}> = {
+      title: 'Components/{{component_name}}',
+      component: {{component_name}},
+      parameters: {
+        layout: 'centered',
+      },
+    };
+    
+    export default meta;
+    type Story = StoryObj<typeof meta>;
+    
+    export const Default: Story = {
+      args: {
+        // Add default props
+      },
+    }; 

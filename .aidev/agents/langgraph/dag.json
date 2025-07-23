@@ -1,0 +1,135 @@
+{
+  "name": "Code Review Agent",
+  "description": "Multi-step code review workflow using LangGraph",
+  "nodes": [
+    {
+      "name": "ReadCode",
+      "type": "tool",
+      "description": "Read and parse the source code files",
+      "config": {
+        "file_patterns": ["**/*.{ts,tsx,js,jsx}"],
+        "exclude_patterns": ["**/node_modules/**", "**/dist/**"],
+        "max_file_size": "1MB"
+      }
+    },
+    {
+      "name": "AnalyzeStructure",
+      "type": "llm",
+      "description": "Analyze code structure and architecture",
+      "config": {
+        "prompt_template": "prompts/code-review.md",
+        "model": "gpt-4o",
+        "temperature": 0.3
+      }
+    },
+    {
+      "name": "SecurityScan",
+      "type": "llm",
+      "description": "Perform security vulnerability analysis",
+      "config": {
+        "prompt_template": "prompts/security-scan.md",
+        "model": "gpt-4o",
+        "temperature": 0.2
+      }
+    },
+    {
+      "name": "PerformanceAnalysis",
+      "type": "llm",
+      "description": "Analyze performance and optimization opportunities",
+      "config": {
+        "prompt_template": "prompts/performance-analysis.md",
+        "model": "gpt-4o",
+        "temperature": 0.4
+      }
+    },
+    {
+      "name": "GenerateReport",
+      "type": "llm",
+      "description": "Generate comprehensive review report",
+      "config": {
+        "prompt_template": "prompts/report-generation.md",
+        "model": "gpt-4o",
+        "temperature": 0.5
+      }
+    },
+    {
+      "name": "SuggestImprovements",
+      "type": "llm",
+      "description": "Suggest specific code improvements",
+      "config": {
+        "prompt_template": "prompts/improvements.md",
+        "model": "gpt-4o",
+        "temperature": 0.6
+      }
+    }
+  ],
+  "edges": [
+    {
+      "from": "ReadCode",
+      "to": "AnalyzeStructure",
+      "condition": "success"
+    },
+    {
+      "from": "ReadCode",
+      "to": "SecurityScan",
+      "condition": "success"
+    },
+    {
+      "from": "ReadCode",
+      "to": "PerformanceAnalysis",
+      "condition": "success"
+    },
+    {
+      "from": ["AnalyzeStructure", "SecurityScan", "PerformanceAnalysis"],
+      "to": "GenerateReport",
+      "condition": "all_complete"
+    },
+    {
+      "from": "GenerateReport",
+      "to": "SuggestImprovements",
+      "condition": "success"
+    }
+  ],
+  "memory": {
+    "type": "conversation_buffer",
+    "config": {
+      "max_token_limit": 4000,
+      "return_messages": true
+    }
+  },
+  "output_schema": {
+    "type": "object",
+    "properties": {
+      "summary": {
+        "type": "string",
+        "description": "Executive summary of the code review"
+      },
+      "issues": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "severity": {"type": "string", "enum": ["critical", "high", "medium", "low"]},
+            "category": {"type": "string"},
+            "description": {"type": "string"},
+            "location": {"type": "string"},
+            "suggestion": {"type": "string"}
+          }
+        }
+      },
+      "metrics": {
+        "type": "object",
+        "properties": {
+          "complexity_score": {"type": "number"},
+          "maintainability_index": {"type": "number"},
+          "security_score": {"type": "number"},
+          "performance_score": {"type": "number"}
+        }
+      },
+      "recommendations": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    }
+  }
+} 

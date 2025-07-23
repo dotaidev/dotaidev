@@ -1,0 +1,179 @@
+{
+  "name": "Software Development Team",
+  "description": "Multi-agent system for collaborative software development",
+  "agents": [
+    {
+      "name": "ProductManager",
+      "role": "Product Manager",
+      "description": "Defines requirements and manages project scope",
+      "config": {
+        "model": "gpt-4o",
+        "temperature": 0.7,
+        "system_message": "You are a Product Manager responsible for defining clear requirements, managing scope, and ensuring the team delivers value to users. You focus on business needs, user stories, and acceptance criteria.",
+        "tools": ["requirement_analysis", "user_story_generation", "acceptance_criteria_definition"]
+      }
+    },
+    {
+      "name": "SoftwareArchitect",
+      "role": "Software Architect",
+      "description": "Designs system architecture and technical solutions",
+      "config": {
+        "model": "gpt-4o",
+        "temperature": 0.4,
+        "system_message": "You are a Software Architect responsible for designing scalable, maintainable, and secure system architectures. You focus on technical decisions, design patterns, and system integration.",
+        "tools": ["architecture_design", "technology_selection", "system_integration"]
+      }
+    },
+    {
+      "name": "SeniorDeveloper",
+      "role": "Senior Developer",
+      "description": "Implements complex features and provides technical guidance",
+      "config": {
+        "model": "gpt-4o",
+        "temperature": 0.3,
+        "system_message": "You are a Senior Developer responsible for implementing complex features, writing high-quality code, and providing technical guidance to the team. You focus on code quality, best practices, and performance.",
+        "tools": ["code_implementation", "code_review", "technical_guidance"]
+      }
+    },
+    {
+      "name": "QAEngineer",
+      "role": "QA Engineer",
+      "description": "Ensures code quality through testing and validation",
+      "config": {
+        "model": "gpt-4o",
+        "temperature": 0.2,
+        "system_message": "You are a QA Engineer responsible for ensuring code quality through comprehensive testing, validation, and quality assurance processes. You focus on test coverage, bug detection, and quality standards.",
+        "tools": ["test_planning", "test_execution", "quality_assurance"]
+      }
+    },
+    {
+      "name": "DevOpsEngineer",
+      "role": "DevOps Engineer",
+      "description": "Manages deployment, infrastructure, and CI/CD",
+      "config": {
+        "model": "gpt-4o",
+        "temperature": 0.3,
+        "system_message": "You are a DevOps Engineer responsible for managing deployment processes, infrastructure, and CI/CD pipelines. You focus on automation, monitoring, and operational excellence.",
+        "tools": ["deployment_automation", "infrastructure_management", "monitoring_setup"]
+      }
+    }
+  ],
+  "workflows": [
+    {
+      "name": "FeatureDevelopment",
+      "description": "Complete feature development workflow",
+      "steps": [
+        {
+          "agent": "ProductManager",
+          "action": "define_requirements",
+          "input": "feature_description",
+          "output": "requirements_document"
+        },
+        {
+          "agent": "SoftwareArchitect",
+          "action": "design_architecture",
+          "input": "requirements_document",
+          "output": "architecture_design"
+        },
+        {
+          "agent": "SeniorDeveloper",
+          "action": "implement_feature",
+          "input": "architecture_design",
+          "output": "feature_implementation"
+        },
+        {
+          "agent": "QAEngineer",
+          "action": "test_feature",
+          "input": "feature_implementation",
+          "output": "test_results"
+        },
+        {
+          "agent": "DevOpsEngineer",
+          "action": "deploy_feature",
+          "input": "test_results",
+          "output": "deployment_status"
+        }
+      ]
+    },
+    {
+      "name": "CodeReview",
+      "description": "Multi-agent code review process",
+      "steps": [
+        {
+          "agent": "SeniorDeveloper",
+          "action": "initial_review",
+          "input": "code_changes",
+          "output": "technical_feedback"
+        },
+        {
+          "agent": "SoftwareArchitect",
+          "action": "architecture_review",
+          "input": "technical_feedback",
+          "output": "architecture_feedback"
+        },
+        {
+          "agent": "QAEngineer",
+          "action": "quality_review",
+          "input": "architecture_feedback",
+          "output": "quality_feedback"
+        },
+        {
+          "agent": "DevOpsEngineer",
+          "action": "deployment_review",
+          "input": "quality_feedback",
+          "output": "deployment_readiness"
+        }
+      ]
+    }
+  ],
+  "communication": {
+    "protocol": "sequential",
+    "memory_type": "shared_conversation",
+    "max_turns": 10,
+    "termination_conditions": [
+      "all_agents_agree",
+      "max_turns_reached",
+      "explicit_termination"
+    ]
+  },
+  "tools": {
+    "requirement_analysis": {
+      "description": "Analyze and break down requirements",
+      "parameters": {
+        "requirement_text": "string",
+        "stakeholders": "array"
+      }
+    },
+    "architecture_design": {
+      "description": "Design system architecture",
+      "parameters": {
+        "requirements": "object",
+        "constraints": "array",
+        "technologies": "array"
+      }
+    },
+    "code_implementation": {
+      "description": "Implement code based on design",
+      "parameters": {
+        "design_spec": "object",
+        "language": "string",
+        "framework": "string"
+      }
+    },
+    "test_planning": {
+      "description": "Create comprehensive test plans",
+      "parameters": {
+        "feature_spec": "object",
+        "test_types": "array"
+      }
+    },
+    "deployment_automation": {
+      "description": "Automate deployment processes",
+      "parameters": {
+        "application": "object",
+        "environment": "string",
+        "infrastructure": "object"
+      }
+    }
+  }
+} 
