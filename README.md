@@ -303,4 +303,4 @@ This project is released under the [MIT License](LICENSE), permitting reuse in c
 
 ---
 
-**Ready to standardize your AI development workflow?** Start by creating a `.aidev/` folder in your next project and see how it transforms your AI-assisted development experience!
+[![Star History Chart](https://api.star-history.com/svg?repos=dotaidev/dotaidev&type=Date)](https://star-history.com/#dotaidev/dotaidev&Date)
