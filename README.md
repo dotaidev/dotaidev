@@ -281,7 +281,7 @@ This ensures that AI models can always reference the complete specification, eve
 
 - **[Full Specification](https://raw.githubusercontent.com/dotaidev/dotaidev/refs/heads/main/spec.md)** - Complete technical specification
 - **[Examples Repository](https://github.com/dotaidev/dotaidev/tree/main/.aidev)** - Real-world usage examples
-- **[IDE Integration Guide](https://github.com/dotaidev/dotaidev/blob/main/README.md)** - Detailed integration instructions
+- **[IDE Integration Guide](https://github.com/dotaidev/dotaidev/tree/main?tab=readme-ov-file#-ide-integration)** - Detailed integration instructions
 
 ## 🤝 Contributing
 
