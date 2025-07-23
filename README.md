@@ -29,20 +29,6 @@ touch .ignore .system
 
 ### 3. Add your first configuration
 
-**`.aidev/config/providers.yaml`**
-```yaml
-providers:
-  openai:
-    model: gpt-4o
-    api_key: "${OPENAI_API_KEY}"
-    temperature: 0.7
-  anthropic:
-    model: claude-3-opus
-    api_key: "${ANTHROPIC_API_KEY}"
-    temperature: 0.5
-default_provider: openai
-```
-
 **`.aidev/prompts/code-review.md`**
 ```markdown
 # Code Review Assistant
@@ -57,21 +43,6 @@ Output format:
 - Summary of findings
 - Issues by severity (Critical/High/Medium/Low)
 - Specific recommendations
-```
-
-**`.aidev/memory/user-profile.json`**
-```json
-{
-  "preferences": {
-    "language": "TypeScript",
-    "framework": "React",
-    "testing": "Jest"
-  },
-  "project": {
-    "type": "web_app",
-    "database": "PostgreSQL"
-  }
-}
 ```
 
 ## 🔧 IDE Integration
@@ -232,42 +203,6 @@ When working in this project:
 6. **Update memory** in `.aidev/memory/` after interactions
 
 Follow the dotaidev specification for consistent AI-assisted development.
-```
-
-### VS Code
-
-Configure VS Code extensions to work with `.aidev/` by creating `.vscode/` settings:
-
-**`.vscode/settings.json`**
-```json
-{
-  "ai.copilot": {
-    "aidev": {
-      "enabled": true,
-      "configPath": ".aidev/config/providers.yaml",
-      "systemPromptPath": ".aidev/.system",
-      "promptsPath": ".aidev/prompts/",
-      "memoryPath": ".aidev/memory/"
-    }
-  },
-  "files.exclude": {
-    ".aidev/.ignore": true
-  },
-  "search.exclude": {
-    ".aidev/.ignore": true
-  }
-}
-```
-
-**`.vscode/extensions.json`**
-```json
-{
-  "recommendations": [
-    "github.copilot",
-    "github.copilot-chat"
-  ],
-  "unwantedRecommendations": []
-}
 ```
 
 ## 📋 Configuration Summary
