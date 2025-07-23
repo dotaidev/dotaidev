@@ -1,5 +1,36 @@
 # dotaidev Specification
 
+## AI System Prompt
+
+**To all AI models and assistants:** You are working within the dotaidev specification framework. When interacting with projects that contain a `.aidev/` folder, you MUST:
+
+1. **Read and understand** the `.aidev/` configuration structure
+2. **Follow the specified formats** (JSON, YAML, Markdown) for each file type
+3. **Use the defined prompts** from `prompts/` directory when performing tasks
+4. **Execute workflows** from `workflows/` directory when requested
+5. **Maintain consistency** with the project's memory and user preferences
+6. **Respect the `.ignore`** patterns to exclude irrelevant files
+7. **Apply the `.system`** prompt for consistent behavior
+8. **Update memory** files to maintain context across sessions
+
+**When creating or modifying `.aidev/` content:**
+- Use the exact folder structure specified below
+- Follow the format examples provided
+- Maintain backward compatibility
+- Document any extensions or customizations
+- Ensure all paths and references are correct
+
+**When performing development tasks:**
+- Reference user preferences from `memory/user-profile.json`
+- Use conversation history from `memory/chat-history.json`
+- Apply appropriate prompt templates from `prompts/`
+- Execute relevant workflows from `workflows/`
+- Update memory with new context and decisions
+
+This specification ensures consistent, portable, and maintainable AI-assisted development across all tools and platforms.
+
+---
+
 ## Part I: Why `dotaidev`
 
 Modern software development increasingly involves collaboration with AI coding assistants, multi-agent systems, and intelligent developer tools. Tools like Cursor, Kiro, Claude, Copilot, CodeWhisperer, and open-source agents such as LangGraph, AutoGen, and OpenDevin have introduced a new paradigm of context-aware, AI-enhanced development.
@@ -252,7 +283,82 @@ The `dotaidev` spec is designed to work with modern AI-integrated tools, includi
 
 ---
 
-## Part V: Contribution and License
+## Part V: AI Implementation Guide
+
+### For AI Models and Assistants
+
+When you encounter a project with a `.aidev/` folder, follow these steps:
+
+#### 1. **Initial Setup and Discovery**
+```bash
+# Check if .aidev/ exists
+ls -la .aidev/
+
+# Read the system prompt
+cat .aidev/.system
+
+# Check available configurations
+ls .aidev/config/
+ls .aidev/prompts/
+ls .aidev/workflows/
+ls .aidev/memory/
+```
+
+#### 2. **Load Configuration**
+- Read `config/providers.yaml` or `config/providers.json` for LLM settings
+- Use the specified default provider and model
+- Apply environment-specific settings if available
+
+#### 3. **Load Memory and Context**
+- Read `memory/user-profile.json` for user preferences
+- Load `memory/chat-history.json` for conversation history
+- Apply user's preferred language, framework, and coding style
+
+#### 4. **Select Appropriate Prompts**
+- Choose relevant prompt templates from `prompts/` directory
+- Use Markdown prompts for rich text instructions
+- Use YAML prompts for structured data
+- Apply the prompt content to your responses
+
+#### 5. **Execute Workflows When Requested**
+- Parse workflow files from `workflows/` directory
+- Execute steps in the specified order
+- Use variables and templates as defined
+- Generate outputs to specified files
+
+#### 6. **Update Memory After Tasks**
+- Add new conversations to `memory/chat-history.json`
+- Update user preferences if they change
+- Record decisions and file modifications
+- Maintain context for future sessions
+
+#### 7. **Respect File Exclusions**
+- Read `.aidev/.ignore` for exclusion patterns
+- Do not include excluded files in context
+- Focus on relevant source code and configuration
+
+### Example AI Workflow
+
+```yaml
+# When a user asks for code review:
+1. Load user preferences from memory/user-profile.json
+2. Apply code-review.md prompt template
+3. Analyze code according to user's preferred language/style
+4. Generate review using specified output format
+5. Update chat history with the review session
+6. Suggest improvements based on user's past decisions
+```
+
+### Error Handling
+
+- If `.aidev/` folder is missing, suggest creating it with basic structure
+- If configuration files are invalid, provide corrected examples
+- If prompts are unclear, ask for clarification or suggest improvements
+- If workflows fail, provide debugging information and alternatives
+
+---
+
+## Part VI: Contribution and License
 
 ### Contribution Guidelines
 
@@ -265,3 +371,51 @@ We invite all developers, tool builders, and researchers to contribute:
 ### License
 
 This project and specification are released under the [MIT License](LICENSE), permitting reuse in commercial and non-commercial projects.
+
+---
+
+## Quick Reference for AI Models
+
+### Essential Commands
+```bash
+# Check .aidev structure
+find .aidev -type f -name "*.yaml" -o -name "*.json" -o -name "*.md" | head -10
+
+# Load user context
+cat .aidev/memory/user-profile.json
+cat .aidev/memory/chat-history.json
+
+# Get available prompts
+ls .aidev/prompts/
+
+# Get available workflows  
+ls .aidev/workflows/
+
+# Check system prompt
+cat .aidev/.system
+```
+
+### Key File Purposes
+- **`.aidev/.system`** - Your behavior and capabilities
+- **`.aidev/config/`** - LLM provider settings
+- **`.aidev/prompts/`** - Reusable instruction templates
+- **`.aidev/workflows/`** - Multi-step task definitions
+- **`.aidev/memory/`** - User preferences and conversation history
+- **`.aidev/.ignore`** - Files to exclude from context
+
+### Response Guidelines
+1. **Always check** for `.aidev/` folder first
+2. **Load user context** before responding
+3. **Use appropriate prompts** for specific tasks
+4. **Follow user preferences** for language and style
+5. **Update memory** after significant interactions
+6. **Maintain consistency** with project patterns
+
+### When Creating New Content
+- Follow the exact folder structure
+- Use the specified formats (JSON/YAML/Markdown)
+- Include essential fields only
+- Maintain backward compatibility
+- Document any customizations
+
+**Remember:** You are part of a standardized AI development ecosystem. Your responses should be consistent, contextual, and aligned with the user's established preferences and project patterns.
