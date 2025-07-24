@@ -74,7 +74,7 @@ Configure Cursor to use `.aidev/` configurations by modifying `.cursor/` folder:
 }
 ```
 
-**`.cursor/prompts/global.md`**
+**`.cursor/aidev.md`**
 ```markdown
 # Global Cursor Configuration
 
@@ -98,28 +98,7 @@ Follow the complete dotaidev specification for consistent behavior across all AI
 
 Configure Claude to recognize `.aidev/` by creating a `.claude/` folder:
 
-**`.claude/config.json`**
-```json
-{
-  "aidev": {
-    "enabled": true,
-    "configPath": ".aidev/config/providers.yaml",
-    "systemPromptPath": ".aidev/.system",
-    "promptsPath": ".aidev/prompts/",
-    "memoryPath": ".aidev/memory/"
-  },
-  "context": {
-    "include": [
-      ".aidev/**/*"
-    ],
-    "exclude": [
-      ".aidev/.ignore"
-    ]
-  }
-}
-```
-
-**`.claude/prompts/aidev.md`**
+**`CLAUDE.md`**
 ```markdown
 # dotaidev Integration
 
@@ -160,7 +139,7 @@ context:
     - ".aidev/.ignore"
 ```
 
-**`.kiro/prompts/aidev.md`**
+**`.kiro/aidev.md`**
 ```markdown
 # dotaidev Specification Integration
 
@@ -203,7 +182,7 @@ Configure Windsurf to recognize `.aidev/` by creating `.windsurf/` folder:
 }
 ```
 
-**`.windsurf/prompts/aidev.md`**
+**`.windsurf/aidev.md`**
 ```markdown
 # dotaidev Integration for Windsurf
 
